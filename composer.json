@@ -1,0 +1,8 @@
+{
+    "name": "puz/simplecrypt",
+    "autoload": {
+        "psr-4": {
+            "Puz\\SimpleCrypt\\": "src/",
+        }
+    }
+}
