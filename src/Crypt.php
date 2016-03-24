@@ -108,21 +108,22 @@ class Crypt
 
     /**
      * @param bool $force
+     * @param array $config Additional config fields. Will override the defaults
      * @throws \Exception
      */
-    public function createKeys($force = false)
+    public function createKeys($force = false, $config = [])
     {
         if (!$this->isFilesCreated() || $force) {
             $folder = $this->folder;
             $public = $folder . DIRECTORY_SEPARATOR . (!empty($this->name) ? $this->name . "_" : "") . "public.pem";
             $private = $folder . DIRECTORY_SEPARATOR . (!empty($this->name) ? $this->name . "_" : "") . "private.pem";
 
-            $config = array(
+            $config = array_merge($config, array(
                 'digest_alg' => 'sha512',
                 'private_key_bits' => 4096,
                 'private_key_type' => OPENSSL_KEYTYPE_RSA,
                 'encrypt_key' => true
-            );
+            ));
 
             // Create the private and public key
             $res = openssl_pkey_new($config);
